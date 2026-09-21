@@ -1,28 +1,48 @@
-import axios from 'axios';
+import {
+    HardDrive,
+    KeyRound,
+    List,
+    PlusCircle,
+    Search,
+    Server,
+    SquarePen,
+    Trash2,
+} from 'lucide-react';
 
-export default async function GetPage() {
-    let series;
+export const examples = [
+    {
+        id: 1,
+        method: 'ApiKey',
+        verb: 'Get',
+        description: 'Lista séries com api-key exposta.',
+        color: 'purple',
+        Icon: KeyRound,
+    },
+    {
+        id: 2,
+        method: 'SSR',
+        verb: 'Get',
+        description: 'Lista séries renderizadas no SSR.',
+        color: 'purple',
+        Icon: Server,
+    },
+    {
+        id: 3,
+        method: 'Offline',
+        verb: 'Get',
+        description: 'Lista séries consumida no sessionStorage.',
+        color: 'purple',
+        Icon: HardDrive,
+    },
+];
 
-    try {
-        const resp = await axios.get(${process.env.API_URL_SERIES}?limit=50, {
-            headers: { 'x-api-key': process.env.API_KEY },
-        });
-
-        series = resp.data.data;
-    } catch (error) {
-        console.error(error);
-    }
-
-    return (
-        <main>
-       <h2> Busca feito pelo servidor, com a api-key privada.</h2>
-       <p>DevTools - Network : essa chamada nem aparece lá, pois ela acontece no servidor.</p>
-       <p>Axios.get direto na API, e salva SessionStorage, mas rodando no servidor, a api-key nunca chega no navegador</p>
-         <ul>
-            {series?.map((item) => (
-                <li key={item.id}>{item.title}</li>
-            ))}
-        </ul>
-       </main>
-    )
-}
+export const crud = [
+    {
+        id: 1,
+        method: 'Read',
+        verb: 'Get',
+        description: 'Lista todas as séries.',
+        color: 'green',
+        Icon: PlusCircle,
+    },
+];
