@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from 'react';
 
-export default function OfflinePage() {
+export default function Offline() {
     const [series, setSeries] = useState([]);
 
     useEffect(() => {
@@ -12,12 +12,12 @@ export default function OfflinePage() {
     return (
         <main>
             <h2>GET - Offline</h2>
-            <p>SessionStorage e nunca chama(fetch/axios) a API.</p>
+            <p>SesionStorage e nunca chama (fetch/axios) a API.</p>
             <ul>
-                {series.map((item) => {
+                {series.map((item) => (
                     <li key={item.id}>{item.title}</li>
-                })}
+                ))}
             </ul>
         </main>
-    )
+    );
 }

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Skeleton } from 'antd';
 import axios from 'axios';
@@ -15,30 +15,35 @@ export default function ReadPage() {
             try {
                 const resp = await axios.get('/api/series?limit=50');
                 setSeries(resp.data.data);
-                toast.success('Séries carregadas!', { id: 'read' });
+                toast.success('Séries carregadas', { id: 'read' });
             } catch (error) {
                 toast.error('Erro ao buscar as séries', { id: 'read' });
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
         }
-    })
+
+        buscarSeries();
+    }, []);
     return (
         <main>
             <h2>Read</h2>
-            <p>Busca séries via /api/series (nossa API route.js), que fala com a Codeverse direto do servidor.</p>
+            <p>
+                Busca séries via /api/series (Nossa API route.js), que fala com a Codeverse do
+                servidor
+            </p>
 
             {loading ? (
-                <div className='skeleton'>
+                <div className="skeleton">
                     <Skeleton active />
                 </div>
             ) : (
-                    <ul>
-                        {series.map(item) => {
-                            <li key = {iem.id}>{item.title}</li>
-                        }}
-                    </ul>
+                <ul>
+                    {series.map((item) => (
+                        <li key={item.id}> {item.title} </li>
+                    ))}
+                </ul>
             )}
         </main>
-    )
+    );
 }
