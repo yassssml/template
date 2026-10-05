@@ -10,6 +10,8 @@ export default function Header() {
     const pathname = usePathname();
 
     const operation =
+        crud.find((c) => pathname === `/${c.route}`) ||
+        examples.find((e) => pathname === `/${e.route}`) ||
         crud.find((c) => pathname === `/${c.method.toLowerCase()}`) ||
         examples.find((e) => pathname === `/${e.method.toLowerCase()}`);
 

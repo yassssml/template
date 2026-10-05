@@ -20,7 +20,7 @@ export default function FormModal({ openModal, serie, confirmLoading, onSubmit, 
                     label="Título"
                     rules={[
                         {
-                            require: true,
+                            required: true,
                             min: 3,
                             max: 120,
                             message: 'Título deve ter entre 3 e 120 caracteres.',
@@ -33,10 +33,10 @@ export default function FormModal({ openModal, serie, confirmLoading, onSubmit, 
                     label="Gênero"
                     rules={[
                         {
-                            require: true,
+                            required: true,
                             min: 3,
                             max: 120,
-                            message: 'Gênero é obrigatorio',
+                            message: 'Gênero é obrigatório',
                         },
                     ]}>
                     <Input placeholder="ex: Não Binario" />
@@ -46,10 +46,10 @@ export default function FormModal({ openModal, serie, confirmLoading, onSubmit, 
                     label="Plataforma"
                     rules={[
                         {
-                            require: true,
+                            required: true,
                             min: 3,
                             max: 120,
-                            message: 'Plataforna é Obrigatoria',
+                            message: 'Plataforma é obrigatória',
                         },
                     ]}>
                     <Input placeholder="ex: HBO" />
@@ -59,9 +59,9 @@ export default function FormModal({ openModal, serie, confirmLoading, onSubmit, 
                     label="Temporadas"
                     rules={[
                         {
-                            require: true,
+                            required: true,
                             type: 'number',
-                            message: 'O Numero de temporadas deve ser um valor positivo',
+                            message: 'O número de temporadas deve ser um valor positivo',
                         },
                     ]}>
                     <InputNumber
@@ -76,9 +76,9 @@ export default function FormModal({ openModal, serie, confirmLoading, onSubmit, 
                     label="Ano de Lançamento"
                     rules={[
                         {
-                            require: true,
+                            required: true,
                             type: 'number',
-                            message: 'O Ano de lançamento deve ser um valor positivo',
+                            message: 'O ano de lançamento deve ser um valor positivo',
                         },
                     ]}>
                     <InputNumber

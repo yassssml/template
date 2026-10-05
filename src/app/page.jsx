@@ -7,23 +7,25 @@ export default function Page() {
     return (
         <>
             <main className={styles.main}>
-                {examples.map(({ id, method, verb, description, color, Icon }) => (
+                {examples.map(({ id, method, route, verb, description, color, Icon }) => (
                     <Card
                         key={id}
                         id={id}
                         verb={verb}
                         method={method}
+                        route={route}
                         description={description}
                         color={color}
                         Icon={Icon}
                     />
                 ))}
-                {crud.map(({ id, method, verb, description, color, Icon }) => (
+                {crud.map(({ id, method, route, verb, description, color, Icon }) => (
                     <Card
                         key={id}
                         id={id}
                         verb={verb}
                         method={method}
+                        route={route}
                         description={description}
                         color={color}
                         Icon={Icon}
