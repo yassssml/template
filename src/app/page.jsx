@@ -1,7 +1,6 @@
-import React from 'react';
-import { examples, crud } from '@/data/crud';
-import styles from './page.module.css';
+import { crud, examples } from '@/data/crud';
 import Card from '../components/Card';
+import styles from './page.module.css';
 
 export default function Page() {
     return (
@@ -9,7 +8,7 @@ export default function Page() {
             <main className={styles.main}>
                 {examples.map(({ id, method, route, verb, description, color, Icon }) => (
                     <Card
-                        key={id}
+                        key={`example-${id}`}
                         id={id}
                         verb={verb}
                         method={method}
@@ -21,7 +20,7 @@ export default function Page() {
                 ))}
                 {crud.map(({ id, method, route, verb, description, color, Icon }) => (
                     <Card
-                        key={id}
+                        key={`crud-${id}`}
                         id={id}
                         verb={verb}
                         method={method}

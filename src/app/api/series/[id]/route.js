@@ -57,7 +57,7 @@ export async function DELETE(req, context) {
         return NextResponse.json(response.data ?? { success: true });
     } catch (error) {
         const status = error.response?.status || 500;
-        const data = error.response?.data || { error: 'Erro ao excluir a série.' };
+        const data = error.response?.data || { error: 'Erro ao deletar a série.' };
 
         return NextResponse.json(data, { status });
     }

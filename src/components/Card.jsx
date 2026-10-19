@@ -2,7 +2,7 @@ import Link from 'next/link';
 import styles from './Card.module.css';
 
 export default function Card({ verb, method, route, description, color, Icon, style }) {
-    const href = route ? `/${route}` : `/${method.toLowerCase()}`;
+    const href = route === 'delete' ? '/read' : route ? `/${route}` : `/${method.toLowerCase()}`;
 
     return (
         <Link href={href} className={styles.card} style={{ ...style, '--card-color': color }}>

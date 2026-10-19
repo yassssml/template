@@ -1,33 +1,49 @@
-import SeriesList from '@/components/SeriesList';
+'use client';
+import { Skeleton } from 'antd';
 import axios from 'axios';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
-const SERIES_URL =
-    process.env.API_URL_SERIES || process.env.NEXT_URL_SERIES || process.env.NEXT_PUBLIC_URL_SERIES;
+export default function ReadPage() {
+    const [series, setSeries] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-export default async function ReadPage() {
-    let series = [];
-
-    try {
-        const resp = await axios.get(`${SERIES_URL}?limit=50`, {
-            headers: {
-                'x-api-key': process.env.API_KEY,
-            },
-        });
-
-        series = Array.isArray(resp.data?.data) ? resp.data.data : [];
-    } catch (error) {
-        console.error('Erro ao buscar séries:', error);
-    }
+    useEffect(() => {
+        async function buscarSeries() {
+            try {
+                const response = await axios.get('/api/series?limit=50');
+                const result = Array.isArray(response.data) ? response.data : response.data?.data;
+                setSeries(Array.isArray(result) ? result : []);
+                toast.success('Séries carregadas', { id: 'read' });
+            } catch {
+                toast.error('Erro ao buscar as séries.', { id: 'read' });
+            } finally {
+                setLoading(false);
+            }
+        }
+        buscarSeries();
+    }, []);
 
     return (
         <main>
-            <h2>Get - Page</h2>
-            <p>O servidor chama a API com api-key privada.</p>
-            <p>
-                Abra o DevTools - Network: a chamada à API não aparece. Clique numa série para
-                buscá-la pelo id.
-            </p>
-            <SeriesList series={series} />
+            <h2>Read</h2>
+            <p>Selecione uma série para ver os detalhes, editar ou excluir.</p>
+            {loading ? (
+                <div className="skeleton">
+                    <Skeleton active />
+                </div>
+            ) : series.length > 0 ? (
+                <ul>
+                    {series.map((item) => (
+                        <li key={item.id}>
+                            <Link href={`/read/${item.id}`}>{item.title}</Link>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>Sem séries disponíveis no momento.</p>
+            )}
         </main>
     );
 }

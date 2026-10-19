@@ -1,11 +1,12 @@
 'use client';
 
 import FormModal from '@/components/FormModal';
-import { Button, Card, Modal, Skeleton } from 'antd';
+import { Button, Card, Skeleton } from 'antd';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import ConfirmDelete from '@/components/ConfirmDelete';
 
 export default function ReadByIdPage() {
     const { id } = useParams();
@@ -23,8 +24,12 @@ export default function ReadByIdPage() {
                 const response = await axios.get(`/api/series/${id}`);
                 setSerie(response.data?.data ?? response.data);
             } catch (error) {
-                toast.error('Série não encontrada.', { id: 'read-id' });
-                console.error(error);
+                if (axios.isAxiosError(error) && error.response?.status === 404) {
+                    toast.error('Série não encontrada.', { id: 'read-id' });
+                } else {
+                    toast.error('Erro ao buscar a série.', { id: 'read-id' });
+                    console.error(error);
+                }
             } finally {
                 setLoading(false);
             }
@@ -106,17 +111,13 @@ export default function ReadByIdPage() {
                         onCancel={() => setEditOpen(false)}
                     />
 
-                    <Modal
-                        open={deleteOpen}
-                        title="Excluir série"
-                        okText="Excluir"
-                        cancelText="Cancelar"
-                        okButtonProps={{ danger: true }}
+                    <ConfirmDelete
+                        openModal={deleteOpen}
+                        serie={serie}
                         confirmLoading={deleting}
-                        onOk={handleDelete}
-                        onCancel={() => setDeleteOpen(false)}>
-                        <p>Tem certeza que deseja excluir esta série?</p>
-                    </Modal>
+                        onConfirm={handleDelete}
+                        onCancel={() => setDeleteOpen(false)}
+                    />
                 </>
             ) : (
                 <p>Série não encontrada.</p>
